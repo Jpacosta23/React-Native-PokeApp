@@ -8,19 +8,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { useAppState, useAppDispatch } from "../store";
+import { getPokemonDetail, deletePokemonDetail } from "../store/actions";
+
 function HomeScreen({ navigation }) {
-  const [pokemon, setPokemon] = useState(null);
-  const [pokePicture, setPokePicture] = useState("");
+  const { pokemon } = useAppState();
+  const dispatch = useAppDispatch();
 
   const handlePress = async () => {
     try {
       let random = Math.round(Math.random() * 151);
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${random}`
-      );
-      const data = await response.json();
-      setPokemon(data);
-      setPokePicture(data.sprites.front_default);
+      await getPokemonDetail(random, dispatch);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +40,7 @@ function HomeScreen({ navigation }) {
               style={styles.button}
               onPress={() => {
                 alert(pokemon.name);
-                setPokemon(null);
+                deletePokemonDetail(dispatch);
               }}
             >
               <Text style={styles.buttonText}>Throw pokeball</Text>
@@ -60,8 +58,8 @@ function HomeScreen({ navigation }) {
         ) : (
           <Image
             source={
-              pokePicture
-                ? { uri: pokePicture }
+              pokemon
+                ? { uri: pokemon.sprites.front_default }
                 : require("../assets/Imgs/Pokeball_icon-icons.com_67533.png")
             }
             style={{ width: 140, height: 140 }}

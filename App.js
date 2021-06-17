@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, View, Text, Image, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import * as Font from "expo-font";
+import { AppProvider } from "./store";
 
 let customFonts = {
   "Minecraft-regular": require("./assets/Fonts/Minecraft.ttf"),
@@ -19,80 +19,79 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts(customFonts);
 
-  // const loadFonts = async () => {
-  //   try {
-  //     await Font.loadAsync(customFonts);
-  //     setFontsLoaded(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   loadFonts();
-  // }, []);
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
-      <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Pokehome"
-          tabBarOptions={{
-            activeTintColor: "red",
-            inactiveTintColor: "#1a1a1a",
-          }}
-        >
-          <Tab.Screen
-            name="Pokehome"
-            component={HomeScreen}
-            options={{
-              tabBarIcon: ({ focused, color, size }) => (
-                <Image
-                  source={require("./assets/Imgs/Pokeball_icon-icons.com_67533.png")}
-                  style={{
-                    width: size,
-                    height: size,
-                    borderRadius: size,
-                  }}
-                />
-              ),
+      <AppProvider>
+        <NavigationContainer>
+          <Tab.Navigator
+            initialRouteName="Pokehome"
+            tabBarOptions={{
+              labelStyle: {
+                fontFamily: "Minecraft-regular",
+                fontSize: 13,
+                margin: 0,
+                padding: 0,
+              },
+              style: {
+                backgroundColor: "#D3D3D3",
+              },
+              activeTintColor: "red",
+              inactiveTintColor: "#1a1a1a",
             }}
-          />
-          <Tab.Screen
-            name="Pokebag"
-            component={DetailScreen}
-            options={{
-              tabBarIcon: ({ focused, color, size }) => (
-                <Image
-                  source={require("./assets/Imgs/pokebag.png")}
-                  style={{
-                    width: size,
-                    height: size,
-                    borderRadius: size,
-                  }}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Pokedex"
-            component={ContactScreen}
-            options={{
-              tabBarIcon: ({ focused, color, size }) => (
-                <Image
-                  source={require("./assets/Imgs/pokedex.png")}
-                  style={{
-                    width: size,
-                    height: size,
-                    borderRadius: size,
-                  }}
-                />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+          >
+            <Tab.Screen
+              name="Pokehome"
+              component={HomeScreen}
+              options={{
+                tabBarIcon: ({ focused, color, size }) => (
+                  <Image
+                    source={require("./assets/Imgs/Pokeball_icon-icons.com_67533.png")}
+                    style={{
+                      width: size,
+                      height: size,
+                      borderRadius: size,
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Pokebag"
+              component={DetailScreen}
+              options={{
+                tabBarIcon: ({ focused, color, size }) => (
+                  <Image
+                    source={require("./assets/Imgs/pokebag.png")}
+                    style={{
+                      width: size,
+                      height: size,
+                      borderRadius: size,
+                    }}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Pokedex"
+              component={ContactScreen}
+              options={{
+                tabBarIcon: ({ focused, color, size }) => (
+                  <Image
+                    source={require("./assets/Imgs/pokedex.png")}
+                    style={{
+                      width: size,
+                      height: size,
+                      borderRadius: size,
+                    }}
+                  />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </AppProvider>
     );
   }
 }
