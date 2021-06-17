@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Button, View, Text, Image, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 
 let customFonts = {
   "Minecraft-regular": require("./assets/Fonts/Minecraft.ttf"),
-  "MisterPixel-regular": require("./assets/VTF MisterPixel/otf/Mister Pixel Regular.otf"),
-  "MisterPixel-tools": require("./assets/VTF MisterPixel/otf/Mister Pixel Tools.otf"),
 };
 
 import HomeScreen from "./Pages/Home";
@@ -18,21 +17,21 @@ import ContactScreen from "./Pages/Contact";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [fontsLoaded] = useFonts(customFonts);
 
-  const loadFonts = async () => {
-    try {
-      await Font.loadAsync(customFonts);
-      setFontsLoaded(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const loadFonts = async () => {
+  //   try {
+  //     await Font.loadAsync(customFonts);
+  //     setFontsLoaded(true);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    loadFonts();
-  }, []);
-  if (fontsLoaded) {
+  // useEffect(() => {
+  //   loadFonts();
+  // }, []);
+  if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
