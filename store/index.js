@@ -4,6 +4,7 @@ const initialState = {
   pokemon: null,
   pokedex: [],
   pokebag: [],
+  counter: 0,
   isLoading: true,
   showError: false,
 };
@@ -36,6 +37,20 @@ const AppReducer = (state, action) => {
       return {
         ...state,
         isLoading: action.payload,
+      };
+    }
+    case "CAPTURE_POKEMON": {
+      return {
+        ...state,
+        pokebag: action.payload,
+        counter: state.counter + 1,
+      };
+    }
+    case "RELEASE_POKEMON": {
+      return {
+        ...state,
+        pokebag: action.payload,
+        counter: state.counter - 1,
       };
     }
     default: {

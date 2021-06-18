@@ -28,4 +28,25 @@ const deletePokemonDetail = (dispatch) => {
   }
 };
 
-export { getPokemonDetail, deletePokemonDetail };
+const capturePokemon = (pokemon, dispatch) => {
+  try {
+    dispatch({ type: "CAPTURE_POKEMON", payload: pokemon });
+  } catch (error) {
+    dispatch({ type: "SHOW_ERROR", payload: error });
+  }
+};
+
+const releasePokemon = (pokemon, dispatch) => {
+  try {
+    dispatch({ type: "RELEASE_POKEMON", payload: pokemon });
+  } catch (error) {
+    dispatch({ type: "SHOW_ERROR", payload: error });
+  }
+};
+
+export {
+  getPokemonDetail,
+  deletePokemonDetail,
+  capturePokemon,
+  releasePokemon,
+};

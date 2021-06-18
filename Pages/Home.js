@@ -1,18 +1,16 @@
-import React, { useState } from "react";
-import {
-  Button,
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { useAppState, useAppDispatch } from "../store";
-import { getPokemonDetail, deletePokemonDetail } from "../store/actions";
+import {
+  getPokemonDetail,
+  deletePokemonDetail,
+  capturePokemon,
+} from "../store/actions";
 
 function HomeScreen({ navigation }) {
-  const { pokemon } = useAppState();
+  // const [counter, setCounter] = useState(0);
+  const { pokemon, pokebag, counter } = useAppState();
   const dispatch = useAppDispatch();
 
   const handlePress = async () => {
@@ -23,6 +21,21 @@ function HomeScreen({ navigation }) {
       console.log(error);
     }
   };
+  const captureButton = () => {
+    let random = Math.round(Math.random() * 10);
+    if (random >= 2) {
+      // setCounter(counter + 1);
+      capturePokemon([...pokebag, pokemon], dispatch);
+      deletePokemonDetail(dispatch);
+    } else {
+      deletePokemonDetail(dispatch);
+      alert(`${pokemon.name} has scaped`);
+    }
+  };
+  useEffect(() => {
+    console.log(counter);
+  }, [pokemon]);
+
   return (
     <View style={styles.main}>
       <View style={styles.container}>
@@ -39,8 +52,12 @@ function HomeScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                alert(pokemon.name);
-                deletePokemonDetail(dispatch);
+                if (counter < 6) {
+                  captureButton();
+                } else {
+                  alert("pokebag full");
+                  deletePokemonDetail(dispatch);
+                }
               }}
             >
               <Text style={styles.buttonText}>Throw pokeball</Text>
