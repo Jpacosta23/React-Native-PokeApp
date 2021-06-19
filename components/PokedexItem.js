@@ -5,25 +5,30 @@ import {
   Image,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
+  FlatList,
 } from "react-native";
-import { useAppState, useAppDispatch } from "../store";
-import { releasePokemon } from "../store/actions";
 
 const deviceWidth = Dimensions.get("window").width;
 
-function PokebagItem({ pokemon, style, index }) {
-  const { pokebag } = useAppState();
-  const dispatch = useAppDispatch();
-  const handlePress = () => {
-    pokebag.splice(index, 1);
-    releasePokemon(pokebag, dispatch);
-  };
+function PokedexItem({ pokemon, style }) {
   return (
     <View style={style}>
       <View style={styles.container}>
-        <Text style={styles.text}>id: {index}</Text>
+        <Text style={styles.text}>id: {pokemon.id}</Text>
         <Text style={styles.text}>{pokemon.name}</Text>
+        <View style={styles.container}>
+          <Text style={styles.text}>Types:</Text>
+          {pokemon.types.map((type, key) => (
+            <View style={styles.container}>
+              <FlatList
+                data={[{ key: `${type.type.name}` }]}
+                renderItem={({ item }) => (
+                  <Text style={styles.list}>{item.key}</Text>
+                )}
+              />
+            </View>
+          ))}
+        </View>
       </View>
       <View style={styles.container}>
         <Image
@@ -34,18 +39,6 @@ function PokebagItem({ pokemon, style, index }) {
           }
           style={styles.image}
         />
-      </View>
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.container}
-          onPress={() => handlePress()}
-        >
-          <Text style={styles.text}>Release</Text>
-          <Image
-            source={require("../assets/Imgs/free.png")}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -70,6 +63,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     margin: 5,
   },
+  list: {
+    fontFamily: "Minecraft-regular",
+    fontSize: 15,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
-export default PokebagItem;
+export default PokedexItem;

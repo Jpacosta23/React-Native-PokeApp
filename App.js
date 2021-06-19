@@ -11,8 +11,8 @@ let customFonts = {
 };
 
 import HomeScreen from "./Pages/Home";
-import DetailScreen from "./Pages/Details";
-import ContactScreen from "./Pages/Contact";
+import pokeBagScreen from "./Pages/PokeBag";
+import PokedexScreen from "./Pages/Pokedex";
 
 const Tab = createBottomTabNavigator();
 
@@ -59,7 +59,7 @@ export default function App() {
             />
             <Tab.Screen
               name="Pokebag"
-              component={DetailScreen}
+              component={pokeBagScreen}
               options={{
                 tabBarIcon: ({ focused, color, size }) => (
                   <Image
@@ -75,7 +75,7 @@ export default function App() {
             />
             <Tab.Screen
               name="Pokedex"
-              component={ContactScreen}
+              component={PokedexScreen}
               options={{
                 tabBarIcon: ({ focused, color, size }) => (
                   <Image

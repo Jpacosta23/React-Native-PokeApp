@@ -1,11 +1,10 @@
 import * as React from "react";
-import { Button, View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useAppState, useAppDispatch } from "../store";
-import PokebagItem from "../components/pokabagItem";
+import PokebagItem from "../components/PokabagItem";
 
-function DetailScreen({ route, navigation }) {
+function pokeBagScreen({ route, navigation }) {
   const { pokebag } = useAppState();
-  const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
@@ -17,6 +16,7 @@ function DetailScreen({ route, navigation }) {
                 pokemon={pokemon}
                 style={styles.pokemonSlot}
                 index={idx}
+                key={idx}
               />
             ))
           : null}
@@ -25,7 +25,7 @@ function DetailScreen({ route, navigation }) {
   );
 }
 
-export default DetailScreen;
+export default pokeBagScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontFamily: "Minecraft-regular",
-    marginTop: 20,
+    marginTop: 30,
     color: "yellow",
   },
   pokemonSlot: {

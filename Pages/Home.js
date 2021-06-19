@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import { useAppState, useAppDispatch } from "../store";
@@ -6,13 +6,37 @@ import {
   getPokemonDetail,
   deletePokemonDetail,
   capturePokemon,
+  addPokemonToPokedex,
 } from "../store/actions";
 
-function HomeScreen({ navigation }) {
-  // const [counter, setCounter] = useState(0);
-  const { pokemon, pokebag, counter } = useAppState();
+function HomeScreen() {
+  const { pokemon, pokebag, counter, pokedex } = useAppState();
   const dispatch = useAppDispatch();
+  let state = true;
 
+  const organizePokedex = (a, b) => {
+    const pokeA = a.id;
+    const pokeB = b.id;
+
+    return pokeA - pokeB;
+  };
+
+  const addToPokedex = () => {
+    if (pokedex.length > 0) {
+      pokedex.sort(organizePokedex);
+      pokedex.forEach((poke) => {
+        if (pokemon.id === poke.id) {
+          state = false;
+        }
+      });
+    }
+    if (state) {
+      console.info("added");
+      addPokemonToPokedex([...pokedex, pokemon], dispatch);
+    } else {
+      console.info(`pokemon already registered`);
+    }
+  };
   const handlePress = async () => {
     try {
       let random = Math.round(Math.random() * 151);
@@ -21,10 +45,10 @@ function HomeScreen({ navigation }) {
       console.log(error);
     }
   };
+
   const captureButton = () => {
     let random = Math.round(Math.random() * 10);
     if (random >= 2) {
-      // setCounter(counter + 1);
       capturePokemon([...pokebag, pokemon], dispatch);
       deletePokemonDetail(dispatch);
     } else {
@@ -49,19 +73,29 @@ function HomeScreen({ navigation }) {
             <Text style={styles.buttonText}>Find Pokemon</Text>
           </TouchableOpacity>
           {pokemon ? (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                if (counter < 6) {
-                  captureButton();
-                } else {
-                  alert("pokebag full");
-                  deletePokemonDetail(dispatch);
-                }
-              }}
-            >
-              <Text style={styles.buttonText}>Throw pokeball</Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => addToPokedex()}
+              >
+                <Text style={styles.buttonText}>Scan Pokemon</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  if (counter < 6) {
+                    captureButton();
+                    addToPokedex();
+                  } else {
+                    alert("pokebag full");
+                    addToPokedex();
+                    deletePokemonDetail(dispatch);
+                  }
+                }}
+              >
+                <Text style={styles.buttonText}>Throw pokeball</Text>
+              </TouchableOpacity>
+            </View>
           ) : null}
         </View>
       </View>

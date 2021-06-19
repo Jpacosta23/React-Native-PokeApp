@@ -53,6 +53,12 @@ const AppReducer = (state, action) => {
         counter: state.counter - 1,
       };
     }
+    case "REGISTER_POKEMON": {
+      return {
+        ...state,
+        pokedex: action.payload,
+      };
+    }
     default: {
       return state;
     }

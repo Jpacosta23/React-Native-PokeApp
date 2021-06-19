@@ -1,7 +1,7 @@
 import { getPokemon } from "../services";
 
 /**
- * Get a single Job
+ * Get a single Pokemon
  * @param {Number} id
  * @param {Function} dispatch
  */
@@ -17,6 +17,10 @@ const getPokemonDetail = async (id, dispatch) => {
   }
 };
 
+/**
+ *Delete Pokemon information from store
+ * @param {Function} dispatch
+ */
 const deletePokemonDetail = (dispatch) => {
   dispatch({ type: "IS_LOADING", payload: true });
   try {
@@ -28,6 +32,11 @@ const deletePokemonDetail = (dispatch) => {
   }
 };
 
+/**
+ * Add pokemon to pokebag
+ * @param {Array} pokemon
+ * @param {Function} dispatch
+ */
 const capturePokemon = (pokemon, dispatch) => {
   try {
     dispatch({ type: "CAPTURE_POKEMON", payload: pokemon });
@@ -36,9 +45,27 @@ const capturePokemon = (pokemon, dispatch) => {
   }
 };
 
+/**
+ *Delete pokemon from pokebag
+ * @param {Array} pokemon
+ * @param {Function} dispatch
+ */
 const releasePokemon = (pokemon, dispatch) => {
   try {
     dispatch({ type: "RELEASE_POKEMON", payload: pokemon });
+  } catch (error) {
+    dispatch({ type: "SHOW_ERROR", payload: error });
+  }
+};
+
+/**
+ *
+ * @param {Array} pokemon
+ * @param {Function} dispatch
+ */
+const addPokemonToPokedex = (pokemon, dispatch) => {
+  try {
+    dispatch({ type: "REGISTER_POKEMON", payload: pokemon });
   } catch (error) {
     dispatch({ type: "SHOW_ERROR", payload: error });
   }
@@ -49,4 +76,5 @@ export {
   deletePokemonDetail,
   capturePokemon,
   releasePokemon,
+  addPokemonToPokedex,
 };
