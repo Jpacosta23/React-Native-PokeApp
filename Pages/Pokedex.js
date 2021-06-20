@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useAppState, useAppDispatch } from "../store";
 import PokedexItem from "../components/PokedexItem";

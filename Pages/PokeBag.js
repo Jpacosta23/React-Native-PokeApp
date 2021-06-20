@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useAppState, useAppDispatch } from "../store";
+import { useAppState } from "../store";
 import PokebagItem from "../components/PokabagItem";
 
 function pokeBagScreen({ route, navigation }) {

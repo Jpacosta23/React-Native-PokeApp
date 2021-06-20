@@ -25,6 +25,7 @@ function PokedexItem({ pokemon, style }) {
                 renderItem={({ item }) => (
                   <Text style={styles.list}>{item.key}</Text>
                 )}
+                horizontal
               />
             </View>
           ))}

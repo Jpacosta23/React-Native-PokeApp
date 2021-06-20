@@ -34,7 +34,7 @@ function HomeScreen() {
       console.info("added");
       addPokemonToPokedex([...pokedex, pokemon], dispatch);
     } else {
-      console.info(`pokemon already registered`);
+      alert(`pokemon already registered`);
     }
   };
   const handlePress = async () => {
@@ -48,7 +48,7 @@ function HomeScreen() {
 
   const captureButton = () => {
     let random = Math.round(Math.random() * 10);
-    if (random >= 2) {
+    if (random >= 4) {
       capturePokemon([...pokebag, pokemon], dispatch);
       deletePokemonDetail(dispatch);
     } else {
@@ -57,7 +57,7 @@ function HomeScreen() {
     }
   };
   useEffect(() => {
-    console.log(counter);
+    console.info(counter);
   }, [pokemon]);
 
   return (
