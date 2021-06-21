@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home snapShot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "red",
+      "flex": 1,
+      "justifyContent": "space-around",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 4,
+        "justifyContent": "space-around",
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        Object {
+          "height": 110,
+          "width": 300,
+        }
+      }
+    />
+    <Text
+      style={
+        Object {
+          "fontFamily": "Minecraft-regular",
+          "fontSize": 30,
+        }
+      }
+    >
+      Catch them now
+    </Text>
+    <View
+      style={
+        Object {
+          "height": 200,
+          "justifyContent": "space-around",
+        }
+      }
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "white",
+            "borderRadius": 4,
+            "elevation": 3,
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingHorizontal": 32,
+            "paddingVertical": 12,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "red",
+              "fontFamily": "Minecraft-regular",
+              "fontSize": 20,
+            }
+          }
+        >
+          Find Pokemon
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "width": 300,
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        Object {
+          "height": 120,
+          "width": 120,
+        }
+      }
+    />
+  </View>
+</View>
+`;
