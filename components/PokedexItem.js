@@ -19,7 +19,7 @@ function PokedexItem({ pokemon, style }) {
         <View style={styles.container}>
           <Text style={styles.text}>Types:</Text>
           {pokemon.types.map((type, key) => (
-            <View style={styles.container}>
+            <View key={key} style={styles.container}>
               <FlatList
                 data={[{ key: `${type.type.name}` }]}
                 renderItem={({ item }) => (
