@@ -35,5 +35,5 @@
     "@testing-library/react": "^11.2.7",
     "jest-expo": "^41.0.0"
   },
-  "private": false
+  "private": true
 }
